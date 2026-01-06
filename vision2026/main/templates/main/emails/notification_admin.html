@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: #48D8BD; color: #212529; padding: 20px; text-align: center; }
+        .content { background: #f9f9f9; padding: 20px; }
+        .subscriber-info { background: white; padding: 15px; border-radius: 5px; margin: 15px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>New VISION 2026 Registration</h2>
+        </div>
+        <div class="content">
+            <p>Hello Annastacia,</p>
+            <p>A new participant has registered for VISION 2026:</p>
+            
+            <div class="subscriber-info">
+                <p><strong>Name:</strong> {{ subscriber.name }}</p>
+                <p><strong>Email:</strong> {{ subscriber.email }}</p>
+                <p><strong>Phone:</strong> {{ subscriber.phone|default:"Not provided" }}</p>
+                <p><strong>Message:</strong> {{ subscriber.message|default:"No message provided" }}</p>
+                <p><strong>Registered:</strong> {{ subscriber.created_at|date:"F d, Y H:i" }}</p>
+            </div>
+            
+            <p>Total registered participants: {{ total_count }}</p>
+            <p>Spots remaining: {{ spots_remaining }}</p>
+            
+            <p>Remember to send the welcome email and add them to your mailing list!</p>
+        </div>
+    </div>
+</body>
+</html>

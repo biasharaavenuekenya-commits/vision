@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VISION 2026 – Designed, Not Default</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+   
+    <!-- Favicon with stacked "2026" -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><style>text{font-family:'Montserrat',Arial,sans-serif;font-weight:800;fill:white}</style><rect width='100' height='100' rx='20' fill='%23c53030'/><text x='50' y='38' font-size='30' text-anchor='middle'>20</text><text x='50' y='72' font-size='30' text-anchor='middle'>26</text></svg>">
+    
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Loading Animation CSS -->
+    <style>
+        /* Loading Animation */
+        .btn-loading {
+            position: relative;
+            pointer-events: none;
+        }
+        
+        .btn-loading .btn-text {
+            visibility: hidden;
+            opacity: 0;
+        }
+        
+        .btn-loading::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            border: 3px solid transparent;
+            border-top-color: white;
+            border-radius: 50%;
+            animation: button-loading-spinner 1s ease infinite;
+        }
+        
+        @keyframes button-loading-spinner {
+            from {
+                transform: rotate(0turn);
+            }
+            to {
+                transform: rotate(1turn);
+            }
+        }
+        
+        /* Form Loading Overlay */
+        .form-loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .form-loading-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #c53030;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        .loading-spinner-text {
+            color: white;
+            margin-top: 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Original Styles from your HTML with minor adjustments */
+        :root {
+            --primary: #CA8A62;
+            --primary-dark: #9B5E3B;
+            --primary-light: #8B6A3E;
+            --secondary: #48D8BD;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --dark: #212529;
+            --transition: all 0.3s ease;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 15px 40px #2F3A3F;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            box-shadow: 0 5px 15px rgba(197, 48, 48, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(197, 48, 48, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            box-shadow: none;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(197, 48, 48, 0.05);
+            color: var(--primary-dark);
+        }
+
+        /* Updated form button */
+        .btn-submit {
+            background: linear-gradient(135deg, #c53030 0%, #8b0000 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+            font-weight: 800;
+            letter-spacing: 2px;
+            padding: 18px 40px;
+            font-size: 1rem;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .btn-submit:hover {
+            animation: gradientShift 1.5s ease infinite;
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        /* Add pulse animation for CTA */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Header & Hero */
+        header {
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(33, 37, 41, 0.9) 100%);
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            padding: 15px 0;
+            background: rgba(26, 26, 46, 0.98);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-light);
+        }
+
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
+        }
+
+        .hero {
+            background: linear-gradient(
+  rgba(32, 140, 125, 0.85),
+  rgba(14, 58, 66, 0.90)
+)
+, url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 180px 0 120px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 2rem;
+        }
+
+        .highlight {
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .highlight:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 8px;
+            background: rgba(197, 48, 48, 0.3);
+            bottom: 5px;
+            left: 0;
+            z-index: -1;
+            border-radius: 4px;
+        }
+
+        /* Countdown Timer */
+        .countdown-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 800px;
+            margin: 40px auto;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .countdown-title {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            padding: 20px 15px;
+            min-width: 120px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .countdown-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1;
+        }
+
+        .countdown-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        /* Section Styling */
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 4px;
+            background: var(--primary);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        /* Django Messages */
+        .messages {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 1000;
+            max-width: 400px;
+        }
+
+        .alert {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: slideIn 0.3s ease-out;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .alert-success {
+            background: rgba(40, 167, 69, 0.9);
+            color: white;
+            border-left: 5px solid #28a745;
+        }
+
+        .alert-error {
+            background: rgba(220, 53, 69, 0.9);
+            color: white;
+            border-left: 5px solid #dc3545;
+        }
+
+        .alert-warning {
+            background: rgba(255, 193, 7, 0.9);
+            color: #212529;
+            border-left: 5px solid #ffc107;
+        }
+
+        /* Form Styles */
+        .vision-form {
+            max-width: 600px;
+            margin: 40px auto 0;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(197, 48, 48, 0.2);
+        }
+
+        .errorlist {
+            color: #dc3545;
+            list-style: none;
+            margin-top: 5px;
+            font-size: 0.875rem;
+        }
+
+        .form-submit {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        /* What You Get Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            padding: 40px 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border-top: 5px solid var(--primary);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        /* Who This Is For */
+        .for-you {
+            background: #f8f9fa;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .for-you:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.03;
+        }
+
+        .for-you-list {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 50px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .for-you-list:before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 5%;
+            width: 90%;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 5px 5px 0 0;
+        }
+
+        .for-you-list ul {
+            list-style: none;
+        }
+
+        .for-you-list li {
+            margin-bottom: 1.5rem;
+            padding-left: 35px;
+            position: relative;
+        }
+
+        .for-you-list li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 25px;
+            height: 25px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Comparison Section */
+        .comparison {
+            text-align: center;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .comparison-box {
+            padding: 40px 30px;
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .comparison-box.bad {
+            background: rgba(108, 117, 125, 0.05);
+            border: 1px solid rgba(108, 117, 125, 0.2);
+        }
+
+        .comparison-box.good {
+            background: rgba(197, 48, 48, 0.05);
+            border: 1px solid rgba(197, 48, 48, 0.3);
+            box-shadow: 0 10px 30px rgba(197, 48, 48, 0.1);
+        }
+
+        .comparison-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .comparison-list {
+            list-style: none;
+            text-align: left;
+        }
+
+        .comparison-list li {
+            margin-bottom: 1rem;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .comparison-list.bad li:before {
+            content: '×';
+            color: var(--gray);
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .comparison-list.good li:before {
+            content: '✓';
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* Event Details */
+        .event-details {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+
+        .event-details .section-title h2 {
+            color: var(--dark);
+        }
+
+        .event-details .section-title h2:after {
+            background: var(--dark);
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .detail-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 4px solid var(--primary);
+        }
+
+        .detail-card h3 {
+            color: var(--primary-light);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            text-align: center;
+            background: #CA8A62;
+            color: white;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .spot-counter {
+            background: rgba(255, 255, 255, 0.1);
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            color: var(--dark);
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .footer-logo span {
+            color: var(--primary);
+        }
+
+        .footer-text {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            color: var(--dark);
+        }
+
+        .copyright {
+            margin-top: 3rem;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+             color: var(--dark);
+            font-size: 0.9rem;
+        }
+
+        /* Scroll Progress Indicator */
+        .scroll-progress {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .progress-circle {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .progress-circle svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .progress-circle circle {
+            fill: none;
+            stroke-width: 4;
+            stroke-linecap: round;
+        }
+
+        .progress-circle circle.bg {
+            stroke: rgba(197, 48, 48, 0.2);
+        }
+
+        .progress-circle circle.fill {
+            stroke: var(--primary);
+            stroke-dasharray: 157;
+            stroke-dashoffset: 157;
+            transition: stroke-dashoffset 0.3s ease;
+        }
+
+        .progress-percent {
+            position: absolute;
+            top: 70%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--primary);
+        }
+
+        .scroll-arrow {
+            position: absolute;
+            top: 35%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--primary);
+            font-size: 18px;
+            opacity: 0.7;
+        }
+
+        .scroll-top {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--primary);
+            font-size: 12px;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .countdown-item {
+                min-width: 100px;
+                padding: 15px 10px;
+            }
+            
+            .countdown-number {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: calc(100vh - 70px);
+                background: var(--secondary);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 40px 30px;
+                transition: var(--transition);
+                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.2);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links li {
+                margin: 0 0 25px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .features-grid,
+            .comparison-grid,
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .for-you-list {
+                padding: 30px 20px;
+            }
+            
+            .countdown {
+                gap: 10px;
+            }
+            
+            .countdown-item {
+                min-width: 80px;
+                padding: 15px 5px;
+            }
+            
+            .countdown-number {
+                font-size: 1.8rem;
+            }
+            
+            .countdown-label {
+                font-size: 0.8rem;
+            }
+            
+            .scroll-progress {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding: 150px 0 80px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .feature-card,
+            .comparison-box,
+            .detail-card {
+                padding: 30px 20px;
+            }
+            
+            .vision-form {
+                padding: 30px 20px;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .cta h2 {
+                font-size: 2rem;
+            }
+            
+            .countdown-container {
+                padding: 20px 15px;
+            }
+            
+            .countdown-item {
+                min-width: 70px;
+                padding: 10px 5px;
+            }
+            
+            .countdown-number {
+                font-size: 1.5rem;
+            }
+            
+            .scroll-progress {
+                bottom: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+            }
+            
+            .progress-percent {
+                font-size: 12px;
+            }
+            
+            .scroll-arrow {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Form Loading Overlay -->
+    <div class="form-loading-overlay" id="loadingOverlay">
+        <div>
+            <div class="loading-spinner"></div>
+            <div class="loading-spinner-text">Processing your registration...</div>
+        </div>
+    </div>
+
+    <!-- Django Messages -->
+    <div class="messages">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress">
+        <div class="progress-circle">
+            <svg>
+                <circle class="bg" cx="50%" cy="50%" r="45%"></circle>
+                <circle class="fill" cx="50%" cy="50%" r="45%"></circle>
+            </svg>
+            <div class="progress-percent">0%</div>
+            <div class="scroll-arrow"><i class="fas fa-arrow-up"></i></div>
+            <div class="scroll-top">TOP</div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <a href="#" class="logo">VISION<span>2026</span></a>
+            <div class="mobile-toggle" id="mobileToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">What You Get</a></li>
+                <li><a href="#for-you">Who It's For</a></li>
+                <li><a href="#comparison">Difference</a></li>
+                <li><a href="#details">Details</a></li>
+                <li><a href="#cta">Claim Your Spot</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 data-aos="fade-down" data-aos-duration="1000" data-aos-delay="200">VISION 2026 – <span class="highlight">Designed, Not Default</span></h1>
+            <p data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">An intimate, high-impact experience for coaches, founders and leaders who are done surviving their years and ready to architect them.</p>
+            
+            <!-- Countdown Timer -->
+            <div class="countdown-container" data-aos="zoom-in" data-aos-duration="1200" data-aos-delay="600">
+                <h3 class="countdown-title">Event Starts In:</h3>
+                <div class="countdown" id="countdown">
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="days">00</div>
+                        <div class="countdown-label">Days</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="hours">00</div>
+                        <div class="countdown-label">Hours</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="minutes">00</div>
+                        <div class="countdown-label">Minutes</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="seconds">00</div>
+                        <div class="countdown-label">Seconds</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-buttons">
+                <a href="#cta" class="btn pulse" data-aos="fade-right" data-aos-duration="800" data-aos-delay="800">Claim Your Spot</a>
+                <a href="#about" class="btn btn-secondary" data-aos="fade-left" data-aos-duration="800" data-aos-delay="800">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About / What You Get -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-aos="fade-up">What You Get Inside VISION 2026</h2>
+                <p data-aos="fade-up" data-aos-delay="200">This is a premium, guided experience combining strategy, soul and accountability.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card" data-aos="flip-left" data-aos-delay="100">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>A 2025 Deep-Dive Audit</h3>
+                    <p>A guided debrief using three powerful lenses: 1. What worked and needs more of you, 2. What didn't and how you'll pivot, 3. What is staying in 2025 for good.</p>
+                </div>
+                <div class="feature-card" data-aos="flip-left" data-aos-delay="200">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3>A Values-Led 2026 Vision Map</h3>
+                    <p>We translate what truly matters to you—your children, your health, your relationships, your business—into a vivid, specific picture of 2026 you can feel in your body.</p>
+                </div>
+                <div class="feature-card" data-aos="flip-left" data-aos-delay="300">
+                    <div class="feature-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h3>A Practical 90-Day Execution Blueprint</h3>
+                    <p>Prioritised goals (life, family, business), Key offers or focus areas, Simple daily/weekly rhythms that support you instead of suffocating you.</p>
+                </div>
+                <div class="feature-card" data-aos="flip-right" data-aos-delay="400">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Aligned Boundaries & Non-Negotiables</h3>
+                    <p>We define what you will no longer tolerate: in your calendar, your client relationships, your money, and your self-talk. These become your guardrails for the year.</p>
+                </div>
+                <div class="feature-card" data-aos="flip-right" data-aos-delay="500">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Live Coaching & Hot Seat Support</h3>
+                    <p>This is not a passive webinar. You get direct coaching on your plan, your blind spots and your resistance, so you're not left alone staring at a pretty PDF.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Who This Is For -->
+    <section id="for-you" class="for-you">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-aos="fade-right">Who This Is For</h2>
+                <p data-aos="fade-right" data-aos-delay="200">VISION 2026 is for you if:</p>
+            </div>
+            <div class="for-you-list" data-aos="zoom-in" data-aos-delay="300">
+                <ul>
+                    <li data-aos="fade-up" data-aos-delay="400">You lead, coach, or run a business—and people depend on you.</li>
+                    <li data-aos="fade-up" data-aos-delay="500">You feel the tension between your mission and your role as a parent/partner/human, and you're ready to design a life that honours both.</li>
+                    <li data-aos="fade-up" data-aos-delay="600">If you feel that pull in your chest as you read this, that is your sign.</li>
+                    <li data-aos="fade-up" data-aos-delay="700">You're tired of the gap between the life you teach and the life you live.</li>
+                    <li data-aos="fade-up" data-aos-delay="800">You know you're capable of so much more, but you need clarity, structure and support to unlock it.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section id="comparison" class="comparison">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-aos="fade-up">The VISION 2026 Difference</h2>
+                <p data-aos="fade-up" data-aos-delay="200">This is not about making your life look good online. It's about making your life feel true offline.</p>
+            </div>
+            <div class="comparison-grid">
+                <div class="comparison-box bad" data-aos="fade-right" data-aos-delay="300">
+                    <h3>Most Planning Sessions Give You:</h3>
+                    <ul class="comparison-list bad">
+                        <li data-aos="fade-right" data-aos-delay="400">Overloaded worksheets</li>
+                        <li data-aos="fade-right" data-aos-delay="500">Generic advice</li>
+                        <li data-aos="fade-right" data-aos-delay="600">A short burst of motivation that dies by February</li>
+                    </ul>
+                </div>
+                <div class="comparison-box good" data-aos="fade-left" data-aos-delay="300">
+                    <h3>VISION 2026 Gives You:</h3>
+                    <ul class="comparison-list good">
+                        <li data-aos="fade-left" data-aos-delay="400">A lived, embodied framework you can repeat every year</li>
+                        <li data-aos="fade-left" data-aos-delay="500">A plan that honours your humanity, not just your hustle</li>
+                        <li data-aos="fade-left" data-aos-delay="600">A clear, simple path from "I'm overwhelmed" to "I know exactly what I'm doing next"</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Details -->
+    <section id="details" class="event-details">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-aos="fade-down">Event Details</h2>
+                <p data-aos="fade-down" data-aos-delay="200">Limited availability for this deep and personal work</p>
+            </div>
+            <div class="details-grid">
+                <div class="detail-card" data-aos="flip-up" data-aos-delay="300">
+                    <h3><i class="far fa-calendar-alt"></i> Date</h3>
+                    <p>Thursday 30 January 2026</p>
+                </div>
+                <div class="detail-card" data-aos="flip-up" data-aos-delay="400">
+                    <h3><i class="far fa-clock"></i> Time</h3>
+                    <p>18:30–20:00 AEDT (Sydney time)</p>
+                </div>
+                <div class="detail-card" data-aos="flip-up" data-aos-delay="500">
+                    <h3><i class="fas fa-video"></i> Format</h3>
+                    <p>Live online via Zoom</p>
+                </div>
+                <div class="detail-card" data-aos="flip-up" data-aos-delay="600">
+                    <h3><i class="fas fa-tag"></i> Investment</h3>
+                    <p>$97 AUD</p>
+                </div>
+            </div>
+            <div class="spot-counter" data-aos="zoom-in" data-aos-delay="700">
+                <p><i class="fas fa-user-friends"></i> Limited to {{ total_spots }} participants only</p>
+            </div>
+            <p style="text-align: center; margin-top: 20px; opacity: 0.8;" data-aos="fade-up" data-aos-delay="800">Replay available for 7 days | This live, interactive Zoom session is capped at {{ total_spots }} participants so you are seen, heard and supported.</p>
+        </div>
+    </section>
+
+   <!-- CTA Section -->
+<section id="cta" class="cta">
+    <div class="container">
+        <h2 class="animate" data-aos="zoom-in">You deserve a 2026 that doesn't just happen to you.</h2>
+        <p class="animate" data-aos="zoom-in" data-aos-delay="200">You deserve a year you can look back on and say: "I chose this. I created this. I showed up for myself and the people I love."</p>
+        
+        <!-- Updated: Show if spots are limited, but don't stop registration -->
+        {% if spots_remaining > 0 %}
+        <div class="spot-counter pulse" data-aos="bounce" data-aos-delay="400">
+            <p><i class="fas fa-exclamation-circle"></i> Limited availability - {{ spots_remaining }} spots left at this price</p>
+        </div>
+        {% else %}
+        <div class="spot-counter" data-aos="bounce" data-aos-delay="400">
+            <p><i class="fas fa-users"></i> Join {{ total_subscribers }} visionaries who have already registered</p>
+        </div>
+        {% endif %}
+        
+        <div class="vision-form" data-aos="flip-up" data-aos-delay="600">
+            <h3 style="color: var(--secondary); margin-bottom: 1.5rem;">Claim Your Spot Now</h3>
+            <p style="margin-bottom: 2rem; color: var(--gray);">Here's your moment to stop scrolling and start deciding.</p>
+            
+            <form method="post" action="{% url 'register' %}" id="visionForm">
+                {% csrf_token %}
+                <div class="form-group" data-aos="fade-right" data-aos-delay="700">
+                    <label for="id_name">Full Name</label>
+                    {{ form.name }}
+                    {% if form.name.errors %}
+                        <div class="errorlist">{{ form.name.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group" data-aos="fade-left" data-aos-delay="800">
+                    <label for="id_email">Email Address</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="errorlist">{{ form.email.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group" data-aos="fade-right" data-aos-delay="900">
+                    <label for="id_phone">Phone Number (Optional)</label>
+                    {{ form.phone }}
+                </div>
+                <div class="form-group" data-aos="fade-left" data-aos-delay="1000">
+                    <label for="id_message">Why VISION 2026? (Optional)</label>
+                    {{ form.message }}
+                </div>
+                <div class="form-submit" data-aos="zoom-in" data-aos-delay="1100">
+                    <button type="submit" class="btn btn-submit" id="submitBtn">
+                        <span class="btn-text">RESERVE MY SPOT NOW</span>
+                    </button>
+                </div>
+            </form>
+            <p style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--gray);">
+                You'll receive full details after submitting. If it's a fit, we lock in your spot and start preparing you before the session even begins.
+                {% if spots_remaining <= 0 %}
+                <br><strong>Note:</strong> While we initially planned for 25 spots, due to high demand we're accepting additional registrations.
+                {% endif %}
+            </p>
+        </div>
+    </div>
+</section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px;">
+                <div data-aos="fade-right">
+                    <a href="#" class="footer-logo" style="display: inline-block; margin-bottom: 20px;">VISION<span>2026</span></a>
+                    <p style="color: var(--dark); line-height: 1.6;">
+                        An intimate, high-impact experience for coaches, founders and leaders ready to architect their years intentionally.
+                    </p>
+                    
+                    <!-- Enhanced Social Icons Section -->
+                    <div class="social-icons" style="margin-top: 25px;">
+                        <h4 style="color: var(--primary); margin-bottom: 15px; font-size: 1.1rem;">Connect With Us</h4>
+                        <div class="social-icons-container" style="display: flex; gap: 18px; flex-wrap: wrap;">
+                            <a href="https://www.instagram.com/annastaciawainaina/" class="social-icon" style="display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; background: var(--primary); border-radius: 50%; color: var(--dark); font-size: 1.4rem; text-decoration: none; transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.2);">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/annastaciawainaina/" class="social-icon" style="display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; background: var(--primary); border-radius: 50%; color: var(--dark); font-size: 1.4rem; text-decoration: none; transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.2);">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="https://open.spotify.com/artist/7d98701234567890" class="social-icon" style="display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; background: var(--primary); border-radius: 50%; color: var(--dark); font-size: 1.4rem; text-decoration: none; transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.2);">
+                                <i class="fab fa-spotify"></i>
+                            </a>
+                            <a href="https://www.facebook.com/njerianneus" class="social-icon" style="display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; background: var(--primary); border-radius: 50%; color: var(--dark); font-size: 1.4rem; text-decoration: none; transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.2);">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                            <a href="https://www.youtube.com/@thehumanedgepodcast" class="social-icon" style="display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; background: var(--primary); border-radius: 50%; color: var(--dark); font-size: 1.4rem; text-decoration: none; transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.2);">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div data-aos="fade-up">
+                    <h4 style="color: var(--primary); margin-bottom: 20px; font-size: 1.2rem;">Quick Links</h4>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 12px;">
+                            <a href="#about" style="color: var(--dark); text-decoration: none; transition: var(--transition); display: flex; align-items: center;">
+                                <i class="fas fa-chevron-right" style="margin-right: 10px; color: var(--primary-light); font-size: 0.8rem;"></i>
+                                What You Get
+                            </a>
+                        </li>
+                        <li style="margin-bottom: 12px;">
+                            <a href="#for-you" style="color: var(--dark);text-decoration: none; transition: var(--transition); display: flex; align-items: center;">
+                                <i class="fas fa-chevron-right" style="margin-right: 10px; color: var(--primary-light); font-size: 0.8rem;"></i>
+                                Who It's For
+                            </a>
+                        </li>
+                        <li style="margin-bottom: 12px;">
+                            <a href="#details" style="color: var(--dark); text-decoration: none; transition: var(--transition); display: flex; align-items: center;">
+                                <i class="fas fa-chevron-right" style="margin-right: 10px; color: var(--primary-light); font-size: 0.8rem;"></i>
+                                Event Details
+                            </a>
+                        </li>
+                        <li style="margin-bottom: 12px;">
+                            <a href="#cta" style="color: var(--dark); text-decoration: none; transition: var(--transition); display: flex; align-items: center;">
+                                <i class="fas fa-chevron-right" style="margin-right: 10px; color: var(--primary-light); font-size: 0.8rem;"></i>
+                                Claim Your Spot
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div data-aos="fade-left">
+                    <h4 style="color: var(--primary); margin-bottom: 20px; font-size: 1.2rem;">Event Details</h4>
+                    <div style="color: var(--dark);">
+                        <p style="margin-bottom: 12px; display: flex; align-items: flex-start;">
+                            <i class="far fa-calendar-alt" style="margin-right: 10px; color: var(--primary-light); margin-top: 3px;"></i>
+                            Thursday 30 January 2026
+                        </p>
+                        <p style="margin-bottom: 12px; display: flex; align-items: flex-start;">
+                            <i class="far fa-clock" style="margin-right: 10px; color: var(--primary-light); margin-top: 3px;"></i>
+                            18:30–20:00 AEDT
+                        </p>
+                        <p style="margin-bottom: 12px; display: flex; align-items: flex-start;">
+                            <i class="fas fa-video" style="margin-right: 10px; color: var(--primary-light); margin-top: 3px;"></i>
+                            Live online via Zoom
+                        </p>
+                        <p style="margin-bottom: 12px; display: flex; align-items: flex-start;">
+                            <i class="fas fa-tag" style="margin-right: 10px; color: var(--primary-light); margin-top: 3px;"></i>
+                            $97 AUD
+                        </p>
+                        <p style="margin-bottom: 12px; display: flex; align-items: flex-start;">
+                            <i class="fas fa-envelope" style="margin-right: 10px; color: var(--primary-light); margin-top: 3px;"></i>
+                            annastacia@annastaciawainaina.com
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-divider" style="height: 1px; background: rgba(255, 255, 255, 0.1); margin: 40px 0 30px;"></div>
+            
+            <div class="footer-bottom" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+                <p style="color: var(--dark); font-size: 0.9rem;">
+                    &copy; 2026 VISION 2026 – Designed, Not Default. All rights reserved.
+                </p>
+                <p style="color: var(--dark); font-size: 0.9rem;">
+                    Powered by <span style="color: #8b0000; font-weight: 600;">Annastacia Wainaina</span> | 
+                    Developed by <a href="https://alphacodesolutions.netlify.app" target="_blank" 
+                    style="color: #8b0000; font-weight: 600; text-decoration: none; position: relative;">
+                    AlphaCode Solutions
+                    <span style="position: absolute; bottom: -2px; left: 0; width: 100%; height: 1px; background: var(--primary-light); transform: scaleX(0); transition: transform 0.3s ease;"></span>
+                    </a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            offset: 100,
+            once: false,
+            mirror: true
+        });
+        
+        // Mobile Navigation Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileToggle.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Form submission with loading animation
+        const visionForm = document.getElementById('visionForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const btnText = document.querySelector('.btn-text');
+        
+        visionForm.addEventListener('submit', function(e) {
+            // Prevent default if form is invalid
+            if (!this.checkValidity()) {
+                return;
+            }
+            
+            // Show loading overlay
+            loadingOverlay.classList.add('active');
+            
+            // Disable submit button and show loading state
+            submitBtn.classList.add('btn-loading');
+            submitBtn.disabled = true;
+            
+            // Hide messages after 5 seconds
+            setTimeout(() => {
+                const messages = document.querySelector('.messages');
+                if (messages) {
+                    messages.style.opacity = '0';
+                    setTimeout(() => {
+                        messages.innerHTML = '';
+                        messages.style.opacity = '1';
+                    }, 500);
+                }
+            }, 5000);
+        });
+        
+        // Countdown Timer for January 30, 2026
+        function updateCountdown() {
+            const eventDate = new Date('January 30, 2026 18:30:00').getTime();
+            const now = new Date().getTime();
+            const timeLeft = eventDate - now;
+            
+            if (timeLeft < 0) {
+                document.getElementById('days').innerHTML = "00";
+                document.getElementById('hours').innerHTML = "00";
+                document.getElementById('minutes').innerHTML = "00";
+                document.getElementById('seconds').innerHTML = "00";
+                return;
+            }
+            
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').innerHTML = days.toString().padStart(2, '0');
+            document.getElementById('hours').innerHTML = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').innerHTML = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').innerHTML = seconds.toString().padStart(2, '0');
+            
+            // Add animation to changing numbers
+            if (seconds === 59) {
+                document.getElementById('seconds').style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    document.getElementById('seconds').style.transform = 'scale(1)';
+                }, 300);
+            }
+        }
+        
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Initial call
+        
+        // Scroll Progress Indicator
+        const progressCircle = document.querySelector('.fill');
+        const progressPercent = document.querySelector('.progress-percent');
+        const scrollArrow = document.querySelector('.scroll-arrow');
+        const scrollTop = document.querySelector('.scroll-top');
+        
+        function updateScrollProgress() {
+            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (window.scrollY / windowHeight) * 100;
+            
+            // Update circle progress
+            const circumference = 157; // 2 * π * r (r = 25)
+            const offset = circumference - (scrolled / 100) * circumference;
+            progressCircle.style.strokeDashoffset = offset;
+            
+            // Update percentage text
+            progressPercent.textContent = `${Math.round(scrolled)}%`;
+            
+            // Show/hide arrow based on scroll position
+            if (scrolled > 10) {
+                scrollArrow.style.display = 'block';
+                scrollTop.style.display = 'block';
+            } else {
+                scrollArrow.style.display = 'block';
+                scrollTop.style.display = 'block';
+            }
+            
+            // Change arrow direction based on scroll position
+            if (scrolled > 95) {
+                scrollArrow.innerHTML = '<i class="fas fa-arrow-up"></i>';
+                scrollTop.textContent = 'TOP';
+            } else {
+                scrollArrow.innerHTML = '<i class="fas fa-arrow-down"></i>';
+                scrollTop.textContent = 'SCROLL';
+            }
+        }
+        
+        // Scroll to top when clicking on progress indicator
+        document.querySelector('.scroll-progress').addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Update scroll progress on scroll
+        window.addEventListener('scroll', updateScrollProgress);
+        updateScrollProgress(); // Initial call
+        
+        // Add hover effects for social icons
+        document.addEventListener('DOMContentLoaded', function() {
+            const socialIcons = document.querySelectorAll('.social-icon');
+            
+            socialIcons.forEach(icon => {
+                icon.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-3px)';
+                });
+                
+                icon.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+        
+        // Simulate spots being taken over time
+        let spots = {{ spots_remaining }};
+        const spotCounter = document.querySelector('.spot-counter p');
+        
+        // Update spots counter periodically
+        setInterval(() => {
+            if (spots > 5) {
+                // Randomly decrease spots occasionally (for demo purposes)
+                if (Math.random() > 0.8) {
+                    spots--;
+                    const spotElement = document.querySelector('.spot-counter');
+                    if (spotElement) {
+                        spotElement.innerHTML = `<p><i class="fas fa-exclamation-circle"></i> Only ${spots} spots remaining</p>`;
+                        
+                        // Add animation
+                        spotElement.style.transform = 'scale(1.1)';
+                        setTimeout(() => {
+                            spotElement.style.transform = 'scale(1)';
+                        }, 300);
+                    }
+                }
+            }
+        }, 15000);
+    </script>
+</body>
+</html>
